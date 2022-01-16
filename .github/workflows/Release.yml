@@ -2,7 +2,7 @@ name: Release to Github
 
 on:
     push:
-    branches:
+      branches:
       - master
 
 jobs:
@@ -31,22 +31,24 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
       
-      - name: Upload File
+      - name: Upload Jar File
         uses: actions/upload-artifact@v2
         with: 
           name: Jar File
           path: build/libs
+      
+      - name: Upload All Build File
+        uses: actions/upload-artifact@v2
+        with: 
           name: All File
-          path: build/
+          path: build
           
       - name: Release to Github
-         run: |
-           cd build
-           cd libs
-         uses: "marvinpinto/action-automatic-releases"
-         with:
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
            repo_token: "${{ secrets.GITHUB_TOKEN }}"
            automatic_release_tag: ${{steps.branch_name.outputs.SOURCE_TAG}}
            prerelease: false
            title: ${{steps.branch_name.outputs.SOURCE_TAG}}
-           files: *.jar
+           files: |
+                 build/libs/*.jar
