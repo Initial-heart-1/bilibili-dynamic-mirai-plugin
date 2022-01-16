@@ -48,5 +48,5 @@ jobs:
       - name: Upload File
         uses: actions/upload-artifact@v2
         with: 
-          path: .github/workflows/data
+          path: build/
       
