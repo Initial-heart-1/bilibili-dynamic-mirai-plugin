@@ -116,10 +116,10 @@ object DynamicTasker : CoroutineScope by PluginMain.childScope("DynamicTasker") 
             val subData = SubData(httpUtils.getAndDecode<User>(USER_INFO(uid)).name)
             subData.contacts[subject] = "11"
             dynamic[uid] = subData
-            "订阅 ${dynamic[uid]?.name} 成功! \n默认检测 动态+视频+直播 如果需要调整请发送/bili set $uid\n如要设置主题色请发送/bili color <16进制颜色>"
+            "订阅 ${dynamic[uid]?.name} 成功"
         } else {
             user.contacts[subject] = "11"
-            "订阅 ${dynamic[uid]?.name} 成功! \n默认检测 动态+视频+直播 如果需要调整请发送/bili set $uid"
+            "订阅 ${dynamic[uid]?.name} 成功"
         }
     }
 
@@ -195,7 +195,7 @@ object DynamicTasker : CoroutineScope by PluginMain.childScope("DynamicTasker") 
 
                 newDynamicList.forEach { di ->
                     val describe = di.describe
-                    logger.info("新动态: ${di.uname}@${di.uid}=${di.did}")
+                    logger.info("检测到新动态: ${di.uname}@${di.uid}=${di.did}")
                     val list = getDynamicContactList(describe.uid, di.describe.type == 8)
                     if (list != null && list.size > 0) {
                         val color = dynamic[describe.uid]?.color ?: "#d3edfa"
