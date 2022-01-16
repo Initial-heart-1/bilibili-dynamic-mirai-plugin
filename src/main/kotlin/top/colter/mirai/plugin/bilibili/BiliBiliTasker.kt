@@ -95,7 +95,7 @@ object DynamicTasker : CoroutineScope by PluginMain.childScope("DynamicTasker") 
 
     suspend fun setColor(uid: Long, color: String): String {
         if (color.first() != '#' || color.length != 7) {
-            return "格式错误，请输入16进制颜色，如: #d3edfa"
+            return "格式错误，请输入16进制颜色，在六位编码前要有#"
         }
         mutex.withLock {
             dynamic[uid]?.color = color
